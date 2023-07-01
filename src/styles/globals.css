@@ -25,4 +25,23 @@ a {
 .main {
   min-height: 100vh;
   flex-grow: 1;
+
+  border-left-style: solid;
+  border-right-style: solid;
+
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+.navbar {
+  position: sticky;
+  padding: 50px 25px;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  list-style: none;
 }
