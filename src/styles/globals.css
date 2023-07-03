@@ -30,7 +30,6 @@ a {
   border-left-color: gray;
   border-right-style: solid;
   border-right-color: gray;
-
   border-left-width: 1px;
   border-right-width: 1px;
 }
@@ -59,13 +58,14 @@ a {
 .newForm {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 15px 15px 15px 25px;
+  gap: 12px;
+  padding: 25px;
+  max-width: 80%;
 }
 
 .form {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .textArea {
@@ -80,37 +80,27 @@ a {
   outline: none;
 }
 
-.smallButton {
-  padding: 15px 10px;
-}
-
-.largeButton {
-  padding: 20px 15px;
-  font: bold;
-}
-
-.grayButton {
-  background-color: rgba(105, 105, 105, 1);
-}
-
-.grayButton:hover,
-.grayButton:focus {
-  background-color: rgba(105, 105, 105, 0.6);
-}
-
-.purpleButton {
-  background-color: rgb(138, 43, 226), 1;
-}
-
-.purpleButton:hover,
-.purpleButton:focus {
-  background-color: rgb(138, 43, 226), 0.6;
-}
-
 .button {
   border-radius: 100px;
   border-style: none;
   font: bold;
   font-size: large;
   color: whitesmoke;
+  padding: 15px 25px;
+  background-color: rgb(138, 43, 226);
+  align-self: flex-end;
+}
+
+.button:hover,
+.button:focus {
+  background-color: rgba(138, 43, 226, 0.8);
+}
+
+.img {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid gray;
+  border-radius: 100%;
 }

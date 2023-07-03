@@ -1,13 +1,13 @@
-import Button from "./Button";
+import ProfileImage from "./ProfileImage";
 
 export default function NewPost() {
   return (
     <form action="" className="newForm">
       <div className="form">
-        {/* <ProfileImage src="#url" /> */}
+        <ProfileImage src="#url" />
         <textarea className="textArea" placeholder="What's on your mind?" />
       </div>
-      <Button>Post</Button>
+      <button className="button">Post</button>
     </form>
   );
 }
