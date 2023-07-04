@@ -60,7 +60,7 @@ a {
   flex-direction: column;
   gap: 12px;
   padding: 25px;
-  max-width: 80%;
+  max-width: 70%;
 }
 
 .form {
@@ -103,4 +103,24 @@ a {
   overflow: hidden;
   border: 1px solid gray;
   border-radius: 100%;
+}
+
+@media (width <= 1000px) {
+  .newForm {
+    max-width: 90%;
+  }
+
+  .navbar {
+    padding: 25px 10px;
+  }
+}
+
+@media (width <= 500px) {
+  .newForm {
+    max-width: 100%;
+  }
+
+  .navbar {
+    padding: 25px 10px;
+  }
 }
