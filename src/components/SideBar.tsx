@@ -17,11 +17,11 @@ export default function SideBar() {
         )}
         {user == null ? (
           <li>
-            <button onClick={() => void signIn()}>Log In</button>
+            <a onClick={() => void signIn()}>Log In</a>
           </li>
         ) : (
           <li>
-            <button onClick={() => void signOut()}>Log Out</button>
+            <a onClick={() => void signOut()}>Log Out</a>
           </li>
         )}
       </ul>

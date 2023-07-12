@@ -22,7 +22,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
       </Head>
 
       <div className="container">
-        <SideBar />
+        <aside className="sidebar">
+          <SideBar />
+        </aside>
         <main className="main">
           <Component {...pageProps} />
         </main>
