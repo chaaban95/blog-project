@@ -1,6 +1,13 @@
 import { useSession } from "next-auth/react";
 import ProfileImage from "./ProfileImage";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import {
+  FormEvent,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { api } from "~/utils/api";
 
 function textAreaSize(textArea?: HTMLTextAreaElement) {
   if (textArea == null) return;
@@ -10,7 +17,7 @@ function textAreaSize(textArea?: HTMLTextAreaElement) {
 
 export default function NewPost() {
   const session = useSession();
-  if (session.status !== "authenticated") return;
+  if (session.status !== "authenticated") return null;
 
   return <Post />;
 }
@@ -28,10 +35,22 @@ function Post() {
     textAreaSize(textAreaRef.current);
   }, [input]);
 
+  const createPost = api.post.create.useMutation({
+    onSuccess: (newPost) => {
+      setInput("");
+    },
+  });
+
   if (session.status !== "authenticated") return null;
 
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    createPost.mutate({ content: input });
+  }
+
   return (
-    <form action="" className="newForm">
+    <form onSubmit={handleSubmit} className="newForm">
       <div className="form">
         <ProfileImage src={session.data.user.image} />
         <textarea
