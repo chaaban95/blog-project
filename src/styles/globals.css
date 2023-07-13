@@ -25,7 +25,7 @@ a {
 }
 
 .sidebar {
-  background-color: rgb(114, 9, 183);
+  background-color: rgb(111, 45, 189);
 }
 
 .navbar {
@@ -47,7 +47,7 @@ a {
 }
 
 .navList a:hover {
-  background-color: rgb(247, 37, 133);
+  background-color: rgb(166, 99, 204);
   cursor: pointer;
 }
 
@@ -76,11 +76,12 @@ a {
   flex-grow: 1;
   resize: none;
   overflow: hidden;
-  padding: 18px 28px;
+  padding: 20px 25px;
   border: 1px solid gray;
   border-radius: 10px;
   font-size: large;
-  line-height: 20px;
+  line-height: 1.5;
+  letter-spacing: 0.8px;
   outline: none;
 }
 
@@ -91,14 +92,55 @@ a {
   font-size: large;
   color: whitesmoke;
   padding: 15px 25px;
-  background-color: rgb(114, 9, 183);
+  background-color: rgb(111, 45, 189);
   align-self: flex-end;
   cursor: pointer;
 }
 
 .button:hover,
 .button:focus {
-  background-color: rgb(247, 37, 133);
+  background-color: rgb(166, 99, 204);
+}
+
+.postCardContainer {
+  max-width: 60%;
+  padding: 35px;
+}
+
+.postsCard {
+  background-color: #b298dc;
+  padding: 20px 25px;
+  margin-bottom: 35px;
+  border-radius: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.8px;
+  display: flex;
+  gap: 12px;
+}
+
+.userTitle {
+  font-weight: bold;
+}
+
+.postCardTitlePlus {
+  display: flex;
+  gap: 5px;
+}
+
+.postCardDash,
+.postCardDate {
+  font-weight: 300;
+}
+
+.postCardContent {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.postCardText {
+  white-space: pre-wrap;
 }
 
 .img {
@@ -112,7 +154,7 @@ a {
 
 @media (width <= 1000px) {
   .newForm {
-    max-width: 85%;
+    max-width: 80%;
     padding: 25px;
   }
 
@@ -123,9 +165,14 @@ a {
   .homeHeader {
     padding: 15px 15px 15px 25px;
   }
+
+  .postCardContainer {
+    max-width: 80%;
+    padding: 25px;
+  }
 }
 
-@media (width <= 600px) {
+@media (width <= 700px) {
   .newForm {
     max-width: 100%;
     padding: 25px;
@@ -137,5 +184,10 @@ a {
 
   .homeHeader {
     padding: 15px 15px 15px 25px;
+  }
+
+  .postCardContainer {
+    max-width: 100%;
+    padding: 25px;
   }
 }
