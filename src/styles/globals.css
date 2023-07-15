@@ -152,6 +152,31 @@ a {
   border-radius: 10px;
 }
 
+.likeIcon {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  gap: 6px;
+  font-weight: 300;
+}
+
+.likeButton {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.userIcon {
+  height: 100%;
+  width: 100%;
+}
+
 @media (width <= 1000px) {
   .newForm {
     max-width: 80%;

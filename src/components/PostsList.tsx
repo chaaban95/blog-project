@@ -1,6 +1,8 @@
 import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProfileImage from "./ProfileImage";
+import { useSession } from "next-auth/react";
+import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 
 type Post = {
   id: string;
@@ -75,7 +77,33 @@ function PostCard({
           </span>
         </div>
         <p className="postCardText">{content}</p>
+        <LikeButton likedByMe={likedByMe} likeCount={likeCount} />
       </section>
     </li>
+  );
+}
+
+type LikeButtonProps = {
+  likedByMe: boolean;
+  likeCount: number;
+};
+
+function LikeButton({ likedByMe, likeCount }: LikeButtonProps) {
+  const session = useSession();
+  const LikeIcon = likedByMe ? FaThumbsUp : FaRegThumbsUp;
+
+  if (session.status !== "authenticated") {
+    return (
+      <div className="likeIcon">
+        <LikeIcon />
+        <span>{likeCount}</span>
+      </div>
+    );
+  }
+  return (
+    <a className="likeButton">
+      <LikeIcon className={`${likedByMe ? FaThumbsUp : FaRegThumbsUp}`} />
+      <span>{likeCount}</span>
+    </a>
   );
 }

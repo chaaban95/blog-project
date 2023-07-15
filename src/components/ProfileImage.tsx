@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FaUser } from "react-icons/fa";
 
 type ProfileImageProps = {
   src?: string | null;
@@ -11,7 +12,9 @@ export default function ProfileImage({
 }: ProfileImageProps) {
   return (
     <div className={`img ${className}`}>
-      {src == null ? null : (
+      {src == null ? (
+        <FaUser className="userIcon" />
+      ) : (
         <Image src={src} alt="Profile Image" quality={100} fill />
       )}
     </div>
