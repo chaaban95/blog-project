@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ProfileImage from "./ProfileImage";
 import { useSession } from "next-auth/react";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+import { api } from "~/utils/api";
 
 type Post = {
   id: string;
@@ -61,6 +62,41 @@ function PostCard({
   likeCount,
   likedByMe,
 }: Post) {
+  const trpcUtils = api.useContext();
+  const toggleLike = api.post.toggleLike.useMutation({
+    onSuccess: ({ addedLike }) => {
+      const updateData: Parameters<
+        typeof trpcUtils.post.feed.setInfiniteData
+      >[1] = (oldData) => {
+        if (oldData == null) return;
+        const countModifier = addedLike ? 1 : -1;
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page) => {
+            return {
+              ...page,
+              posts: page.posts.map((post) => {
+                if (post.id === id) {
+                  return {
+                    ...post,
+                    likeCount: post.likeCount + countModifier,
+                    likedByMe: addedLike,
+                  };
+                }
+                return post;
+              }),
+            };
+          }),
+        };
+      };
+      trpcUtils.post.feed.setInfiniteData({}, updateData);
+    },
+  });
+
+  function handleToggleLike() {
+    toggleLike.mutate({ id });
+  }
+
   return (
     <li className="postsCard">
       <Link href={`/profiles/${user.id}`}>
@@ -77,18 +113,30 @@ function PostCard({
           </span>
         </div>
         <p className="postCardText">{content}</p>
-        <LikeButton likedByMe={likedByMe} likeCount={likeCount} />
+        <LikeButton
+          onClick={handleToggleLike}
+          isLoading={toggleLike.isLoading}
+          likedByMe={likedByMe}
+          likeCount={likeCount}
+        />
       </section>
     </li>
   );
 }
 
 type LikeButtonProps = {
+  onClick: () => void;
+  isLoading: boolean;
   likedByMe: boolean;
   likeCount: number;
 };
 
-function LikeButton({ likedByMe, likeCount }: LikeButtonProps) {
+function LikeButton({
+  isLoading,
+  onClick,
+  likedByMe,
+  likeCount,
+}: LikeButtonProps) {
   const session = useSession();
   const LikeIcon = likedByMe ? FaThumbsUp : FaRegThumbsUp;
 
@@ -101,7 +149,7 @@ function LikeButton({ likedByMe, likeCount }: LikeButtonProps) {
     );
   }
   return (
-    <a className="likeButton">
+    <a disabled={isLoading} onClick={onClick} className="likeButton">
       <LikeIcon className={`${likedByMe ? FaThumbsUp : FaRegThumbsUp}`} />
       <span>{likeCount}</span>
     </a>
