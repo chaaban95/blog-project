@@ -16,7 +16,7 @@ type Post = {
 type PostsListProps = {
   isLoading: boolean;
   isError: boolean;
-  hasMore: boolean;
+  hasMore: boolean | undefined;
   fetchNewPosts: () => Promise<unknown>;
   posts?: Post[];
 };
@@ -26,7 +26,7 @@ export default function PostsList({
   isError,
   isLoading,
   fetchNewPosts,
-  hasMore,
+  hasMore = false,
 }: PostsListProps) {
   if (isLoading) return <h1>Loading...</h1>;
   if (isError) return <h1>Error!</h1>;

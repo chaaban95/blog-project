@@ -31,6 +31,8 @@ function Post() {
     textAreaRef.current = textArea;
   }, []);
 
+  const trpcUtils = api.useContext();
+
   useLayoutEffect(() => {
     textAreaSize(textAreaRef.current);
   }, [input]);
@@ -38,6 +40,35 @@ function Post() {
   const createPost = api.post.create.useMutation({
     onSuccess: (newPost) => {
       setInput("");
+
+      if (session.status !== "authenticated") {
+        return;
+      }
+
+      trpcUtils.post.feed.setInfiniteData({}, (oldData) => {
+        if (oldData == null || oldData.pages[0] == null) return;
+
+        const cacheNewPost = {
+          ...newPost,
+          likeCount: 0,
+          likedByMe: false,
+          user: {
+            id: session.data.user.id,
+            name: session.data.user.name || null,
+            image: session.data.user.image || null,
+          },
+        };
+        return {
+          ...oldData,
+          pages: [
+            {
+              ...oldData.pages[0],
+              posts: [cacheNewPost, ...oldData.pages[0].posts],
+            },
+            ...oldData.pages.slice(1),
+          ],
+        };
+      });
     },
   });
 
